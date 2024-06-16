@@ -1,17 +1,11 @@
+"use client"
 import Logo from "./Logo";
+import { ThemeContext } from "@/lib/ThemeProvider";
+import { useContext } from "react";
 
 export default function Header() {
-  // return (
-  //   <header>
-  //     <nav className="flex justify-end gap-5 p-4">
-  //       <a href="/">Home</a>
-  //       <a href="/quotes">Quotes</a>
-  //       <a href="/about">About</a>
-  //       <a href="/login">Login</a>
-  //       <a href="/register">Register</a>
-  //     </nav>
-  //   </header>
-  // );
+  const theme= useContext(ThemeContext)
+
 
   return (
     <div className="navbar bg-base-100 sticky top-0 bg-gradient-to-r from-blue-500 opacity-91">
@@ -86,7 +80,7 @@ export default function Header() {
         </ul>
       </div>
       <div className="navbar-end">
-        <label className="swap swap-rotate">
+        <label className="swap swap-rotate" onClick={()=>{}}>
           {/* this hidden checkbox controls the state */}
           <input
             type="checkbox"

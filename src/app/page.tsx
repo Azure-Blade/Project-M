@@ -10,7 +10,7 @@ export default function Page() {
           <p>Motivational</p>
           <p>Quotes</p>
           <div className="p-24 flex flex-col items-center">
-            <QuotesButton></QuotesButton>
+            <QuotesButton />
           </div>
         </div>
       </section>

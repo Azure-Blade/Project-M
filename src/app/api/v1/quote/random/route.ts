@@ -1,8 +1,8 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { db } from '@/db/index';
-import { quotes } from '@/db/schema';
+import { db } from "@/db/index";
+import { quotes } from "@/db/schema";
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export const dynamic = 'force-dynamic' // defaults to auto
+export async function GET(request: Request) {
     try {
         // Fetch all quotes
         const allQuotes = await db.select({
@@ -14,12 +14,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if (allQuotes.length > 0) {
             const randomIndex = Math.floor(Math.random() * allQuotes.length);
             const randomQuote = allQuotes[randomIndex];
-            res.status(200).json(randomQuote);
+
+            return new Response(JSON.stringify(randomQuote) )
         } else {
-            res.status(404).json({ error: "No quotes found" });
+            return new Response("Error", {
+                status: 403
+            })
         }
     } catch (error) {
         console.error("Failed to fetch quote:", error);
-        res.status(500).json({ error: "Failed to fetch quote" });
+        return new Response("Error" , {
+            status: 500
+        })
     }
 }

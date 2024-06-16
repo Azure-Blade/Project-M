@@ -3,17 +3,21 @@
 import { useState } from "react";
 
 // Define the type for the quote object
-interface Quote {
+type Quote = {
   content: string;
   author: string;
 }
 
-export default function QuotesButton() {
+
+type Props = {
+  className?:string
+}
+export default function QuotesButton({className}:Props) {
   const [quote, setQuote] = useState<Quote | null>(null);
 
   const fetchQuote = async () => {
     try {
-      const response = await fetch("/api/randomQuote");
+      const response = await fetch("/api/v1/quote/random");
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
