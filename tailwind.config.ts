@@ -8,13 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        colors: {
+          text: "#dee6f8",
+          background: "#040810",
+          primary: "#6d9bfd",
+          secondary: "#831843",
+          accent: "#3c83f6",
+        },
       },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    themes: ["dracula", "night", "fantasy", "forest"],
+  },
 };
 export default config;
