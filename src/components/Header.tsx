@@ -79,7 +79,9 @@ function Nav() {
 
       <li className="sm:hidden">
         <a>Login</a>
-        <AuthLinks />
+        <ul>
+          <AuthLinks />
+        </ul>
       </li>
 
       <li className="hidden sm:flex">
