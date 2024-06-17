@@ -1,29 +1,27 @@
-"use server"
-import { db } from "@/db/index";
-import { users } from "@/db/schema";
-import z from "zod"
-
+'use server';
+import { db } from '@/db/index';
+import { users } from '@/db/schema';
+import z from 'zod';
+import { formDataToValidatedObject } from '../utils';
 
 const validator = z.object({
   username: z.string().min(8),
   password: z.string().min(8),
-  email: z.string().email()
-})
+  email: z.string().email(),
+});
+
+const s = validator.spa({});
 
 export async function register(formData: FormData) {
-  const data = {};
-  for (const [key, value] of formData.entries())
-    Object.assign(data, { [key]: value });
-
-  console.log(data)
-  const result = await validator.safeParseAsync(data)
-
-  if (!result.success) {
-    console.log("Incorrect input!")
-    return
+  const { data, success, error } = await formDataToValidatedObject(
+    formData,
+    validator
+  );
+  if (!success) {
+    console.log('Incorrect input!', error.message);
+    return null;
   }
 
-  const inserResult = await db.insert(users).values(result.data)
-  console.log(`Created new user with an id: ${inserResult[0].insertId}`)
-  
+  const insertResult = await db.insert(users).values(data);
+  console.log(`Created new user with an id: ${insertResult[0].insertId}`);
 }
